@@ -1,10 +1,10 @@
 #######################################################################################################################################################
 # 
-# Name:
-# SID:
-# Exam Date:
-# Module:
-# Github link for this assignment:  
+# Name: Rose Bijo
+# SID: 750014063
+# Exam Date: 27/03/2025
+# Module: BEMM458_ Programming For Business Analytics
+# Github link for this assignment:  https://github.com/UniversityExeterBusinessSchool/practiceassessment-thursday-rb1059.git
 #
 # ######################################################################################################################################################
 # Instruction 1. Read the questions and instructions carefully and complete scripts.
@@ -48,9 +48,26 @@ key_comments = {
 }
 
 # Write your search code here and provide comments. 
+keys = [7, 3]
 
-# Initialize an empty list to store (start, end) positions
+# Get words for our keys
+words = [key_comments[k] for k in keys]
+
+# List to store positions
 my_list = []
+
+# Find where each word starts and ends
+for word in words:
+    start = customer_feedback.find(word)  # Find position
+    if start != -1:
+        end = start + len(word) - 1
+        my_list.append((start, end))
+
+# Show result
+print('My List: ',my_list)
+
+#output :My List:  [(129, 135), (88, 93)]
+
 
 ##########################################################################################################################################################
 
@@ -59,19 +76,47 @@ my_list = []
 # Operating Profit Margin, Revenue per Customer, Customer Churn Rate, and Average Order Value. Use Python functions 
 # that will take the values and return the metric needed. Use the first two and last two digits of your ID number as the input values.
 
-# Insert first two digits of ID number here:
-# Insert last two digits of ID number here:
+# Insert first two digits of ID number here:75
+# Insert last two digits of ID number here:63
 
 # Write your code for Operating Profit Margin
-
+def operating_profit_margin(revenue,operating_profit):
+    return(operating_profit/revenue)*100 if revenue!=0 else 0
 # Write your code for Revenue per Customer
+def revenue_per_customer(total_revenue, total_customers):
+    return total_revenue/total_customers if total_customers !=0 else 0
 
 # Write your code for Customer Churn Rate
-
+def customer_churn_rate(lost_customers,total_customers):
+    return(lost_customers/total_customers)*100 if total_customers != 0 else 0
 # Write your code for Average Order Value
+def average_order_value(total_revenue, total_orders):
+    return total_revenue/total_orders if total_orders != 0 else 0
+
+#Given  values based on ID number
+revenue=7500   #eg value based on 1st two digits (75*100)
+operating_profit=630  #eg value based on last two digits(63*10)
+total_customers=75  #eg customers
+lost_customers=63  #eg lost customers
+total_orders=75  # eg orders
+total_revenue=7500
 
 # Call your designed functions here
+opm= operating_profit_margin(revenue,operating_profit)
+rpc=revenue_per_customer(total_revenue, total_customers)
+ccr = customer_churn_rate(lost_customers, total_customers)
+aov = average_order_value(total_revenue, total_orders)
+#display the result
+print('operating_profit_margin :', opm)
+print('revenue_per_customer :', rpc)
+print('customer_churn_rate :', ccr)
+print('average_order_value :', aov)
 
+#output: 
+#operating_profit_margin : 8.4
+#revenue_per_customer : 100.0
+#customer_churn_rate : 84.0
+#average_order_value : 100.0
 ##########################################################################################################################################################
 
 # Question 3 - Regression
@@ -97,6 +142,37 @@ Price (£)    Demand (Units)
 """
 
 # Write your code here
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Data
+price = np.array([20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70]).reshape(-1, 1)  # Price levels
+demand = np.array([300, 280, 260, 240, 210, 190, 160, 140, 120, 100, 85])  # Corresponding demand
+
+# Create a linear regression model
+model = LinearRegression()
+model.fit(price, demand)
+
+
+#  calculate the coefficient of the linear regression (slope) to approximate the demand function
+slope = model.coef_[0]
+
+# predict the demand for a specific price (Price = 52)
+price_52 = 52
+demand_at_52 = model.predict([[price_52]])
+
+# Plot the linear regression line
+plt.scatter(price, demand, color='blue', label='Data points')
+plt.plot(price, model.predict(price), color='red', label='Linear regression line')
+plt.xlabel('Price (£)')
+plt.ylabel('Demand (Units)')
+plt.title('Price vs Demand')
+plt.legend()
+plt.show()
+
+# Print the predicted demand at price 52
+print("Predicted demand when price is £52:", demand_at_52[0])
 
 ##########################################################################################################################################################
 
@@ -106,17 +182,16 @@ import random
 import matplotlib.pyplot as plt
 
 # Generate 100 random numbers between 1 and student id number
-max-value = integer(input("Enter your Student ID: "))
-random_numbers = [random.randint(1, max_value) for i in range(0,100)]
+max_value = int(input("Enter your Student ID: "))
+random_numbers = [random.randint(1, max_value) for i in range(0, 100)]
 
 # Plotting the numbers in a line chart
-plt.plot(random_numbers, marker='O', markercolor='green', markeredgcolor='red', linestyle='--', lable='Random Numbers', color='blue');
-plt.title(Line Chart of 100 Random Numbers)
-plt.xlabel="Index"
-plt.ylabel="Random Number"
-plt.legend('---')
+plt.plot(random_numbers, marker='o', markerfacecolor='green', markeredgecolor='red', linestyle='--', label='Random Numbers', color='blue')
+plt.title('Line Chart of 100 Random Numbers')
+plt.xlabel('Index')
+plt.ylabel('Random Number')
+plt.legend()
 plt.grid(True)
 plt.show()
-
 
 
